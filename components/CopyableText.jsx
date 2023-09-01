@@ -10,7 +10,7 @@ const CopyableText = ({ text }) => {
   const [copied, setCopied] = useState(false);
 
   return (
-    <pre className="flex justify-between mb-0">
+    <pre className="flex justify-between mb-0 bg-gray-800">
       <code>{text}</code>
       <button
         onClick={() => {
@@ -19,7 +19,7 @@ const CopyableText = ({ text }) => {
         }}
       >
         {copied ? (
-          <ClipboardDocumentCheckIcon className="w-5 h-5" />
+          <ClipboardDocumentCheckIcon className="w-5 h-5 text-white" />
         ) : (
           <ClipboardDocumentListIcon className="w-5 h-5" />
         )}

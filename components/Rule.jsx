@@ -12,10 +12,10 @@ const Rule = ({ rule, updateRule, removeRule }) => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-between border border-gray-500 rounded-md p-2 mb-4">
+    <div className="flex flex-row items-center justify-between border border-gray-300 rounded-lg p-2 mb-4">
       <div className="flex flex-row items-center gap-2">
         <select
-          className="rounded-md border-0 font-semibold text-black"
+          className="rounded-lg border-0 font-semibold text-gray-800"
           value={rule[0]}
           onChange={({ target }) => updateRule([target.value, rule[1]])}
         >
@@ -32,7 +32,7 @@ const Rule = ({ rule, updateRule, removeRule }) => {
               key={id}
               type="text"
               placeholder={title}
-              className="border-0 rounded-md"
+              className="border-0 rounded-lg"
               onChange={({ target }) => setValue(id, target.value)}
               value={rule[1][id] || defaultValue || ""}
               {...props}
@@ -41,7 +41,7 @@ const Rule = ({ rule, updateRule, removeRule }) => {
         })}
       </div>
       <button
-        className="p-2 text-gray-500 hover:text-black"
+        className="p-2 text-gray-500 hover:text-gray-800"
         onClick={removeRule}
       >
         <TrashIcon className="w-5 h-5" />

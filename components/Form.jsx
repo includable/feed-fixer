@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { PlusCircleIcon } from "@heroicons/react/20/solid";
 
 import Input from "./Input";
 import Rule from "./Rule";
@@ -65,8 +66,8 @@ const Form = (props) => {
           </p>
 
           {url ? (
-            <div className="rounded-md bg-green-100 border border-green-200 p-8 mt-4">
-              <h4 className="mt-0 mb-4">Your private feed URL</h4>
+            <div className="rounded-lg border border-gray-800 border-2 p-8 my-8">
+              <h4 className="mt-0 mb-4">Your private feed URL 🚀</h4>
               <CopyableText text={url} />
             </div>
           ) : (
@@ -91,8 +92,8 @@ const Form = (props) => {
               key={index}
             />
           ))}
-          <button onClick={addRule} className="font-semibold text-black">
-            Add rule
+          <button onClick={addRule} className="font-semibold text-gray-500 hover:text-gray-800 inline-flex items-center gap-1.5">
+            <PlusCircleIcon className="w-5 h-5"/> Add rule
           </button>
           <hr />
 
