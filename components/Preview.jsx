@@ -12,7 +12,7 @@ const Preview = ({ url, rules }) => {
   console.log(url);
 
   return (
-    <div className="bg-gray-100 p-16 prose lg:w-[35%] overflow-auto">
+    <div className="bg-gray-100 p-6 lg:p-16 prose lg:w-[35%] overflow-auto">
       <h3>Preview</h3>
       {isLoading ? (
         <p>Loading...</p>

@@ -54,7 +54,7 @@ const Form = (props) => {
 
   return (
     <div className="lg:flex lg:h-screen">
-      <div className="p-16 flex justify-center overflow-auto flex-1">
+      <div className="p-6 lg:p-16 lg:flex lg:justify-center lg:overflow-auto flex-1">
         <main className="prose max-w-3xl flex-1">
           <h1>Feed Fixer</h1>
           <p>
@@ -66,7 +66,7 @@ const Form = (props) => {
           </p>
 
           {url ? (
-            <div className="rounded-lg border border-gray-800 border-2 p-8 my-8">
+            <div className="rounded-lg border border-gray-800 border-2 p-4 md:p-8 my-8">
               <h4 className="mt-0 mb-4">Your private feed URL 🚀</h4>
               <CopyableText text={url} />
             </div>

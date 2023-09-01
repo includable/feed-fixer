@@ -12,10 +12,10 @@ const Rule = ({ rule, updateRule, removeRule }) => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-between border border-gray-300 rounded-lg p-2 mb-4">
-      <div className="flex flex-row items-center gap-2">
+    <div className="flex items-center justify-between border border-gray-300 rounded-lg p-2 mb-4">
+      <div className="md:flex flex-1 items-center gap-2">
         <select
-          className="rounded-lg border-0 font-semibold text-gray-800"
+          className="w-full md:w-auto rounded-lg border-0 font-semibold text-gray-800"
           value={rule[0]}
           onChange={({ target }) => updateRule([target.value, rule[1]])}
         >
