@@ -1,9 +1,11 @@
 import React from "react";
 import useSWR from "swr";
 
-const Preview = ({ url }) => {
-  const { data, isLoading } = useSWR(url, async (url) => {
-    const res = await fetch(url + "&format=json");
+const Preview = ({ url, rules }) => {
+  const { data, isLoading } = useSWR([url, rules], async () => {
+    const res = await fetch(
+      `/preview?url=${url}&rules=${encodeURIComponent(JSON.stringify(rules))}`
+    );
     return res.json();
   });
   console.log(data);

@@ -5,23 +5,19 @@ import React, { useEffect, useState } from "react";
 import Input from "./Input";
 import Rule from "./Rule";
 import Preview from "./Preview";
+import { saveItem } from "@/lib/api";
+import CopyableText from "./CopyableText";
 
-const Form = () => {
-  const [feedUrl, setFeedUrl] = useState("https://techcrunch.com/feed/");
-  const [rules, setRules] = useState([["include", { q: "Google" }]]);
+const Form = (props) => {
+  const [feedUrl, setFeedUrl] = useState(
+    props.url || "https://techcrunch.com/feed/"
+  );
+  const [rules, setRules] = useState(
+    props.rules || [["include", { q: "Google" }]]
+  );
+  const [id, setId] = useState(props.id || undefined);
   const [url, setUrl] = useState("");
-
-  useEffect(() => {
-    if (typeof window === "undefined") return "";
-
-    const feedUrlParams = new URLSearchParams();
-    feedUrlParams.set("url", feedUrl);
-    feedUrlParams.set("rules", JSON.stringify(rules));
-
-    const base = `${window.location.protocol}//${window.location.host}/mix`;
-
-    setUrl(`${base}?${feedUrlParams.toString()}`);
-  }, [feedUrl, rules]);
+  const [loading, setLoading] = useState(false);
 
   const addRule = () => {
     setRules([...rules, ["exclude", {}]]);
@@ -39,6 +35,22 @@ const Form = () => {
     setRules(newRules);
   };
 
+  const save = async () => {
+    setLoading(true);
+    const key = await saveItem({ url: feedUrl, rules }, id);
+    if (key !== props.id) {
+      window.history.replaceState({}, "", `/edit/${key}`);
+    }
+    setId(key);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (id) {
+      setUrl(`${window.location.origin}/mix/${id}`);
+    }
+  }, [id, setUrl]);
+
   return (
     <div className="lg:flex lg:h-screen">
       <div className="p-16 flex justify-center overflow-auto flex-1">
@@ -51,7 +63,16 @@ const Form = () => {
             returned, which contains the original feed, but with these rules
             applied.
           </p>
-          <hr />
+
+          {url ? (
+            <div className="rounded-md bg-green-100 border border-green-200 p-8 mt-4">
+              <h4 className="mt-0 mb-4">Your private feed URL</h4>
+              <CopyableText text={url} />
+            </div>
+          ) : (
+            <hr />
+          )}
+
           <h3>Original feed URL</h3>
           <Input
             type="url"
@@ -75,17 +96,20 @@ const Form = () => {
           </button>
           <hr />
 
-          <h3>Resulting feed URL</h3>
-          <pre>{url}</pre>
           <button
-            onClick={() => navigator.clipboard.writeText(url)}
-            className="font-semibold text-black"
+            onClick={save}
+            disabled={loading}
+            className="font-semibold text-white bg-gray-900 rounded-md px-4 py-2 mb-20"
           >
-            Copy to clipboard
+            {loading
+              ? "Saving..."
+              : id
+              ? "Update feed rules"
+              : "Generate feed URL"}
           </button>
         </main>
       </div>
-      <Preview url={url} />
+      <Preview url={feedUrl} rules={rules} />
     </div>
   );
 };
